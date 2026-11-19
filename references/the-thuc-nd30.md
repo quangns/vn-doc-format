@@ -109,9 +109,10 @@ Không dùng phím Tab hay dấu cách để lùi đầu dòng: dùng thụt l�
 | Chương | `Chương 1. TỔNG QUAN` | IN HOA, đậm, canh giữa, sang trang mới |
 | Mục cấp 2 | `1.1. Đại cương` | đậm |
 | Mục cấp 3 | `1.1.1. Định nghĩa` | đậm, nghiêng |
-| Mục cấp 4 | `a) Độ cầu` hoặc `1.1.1.1.` | nghiêng |
+| Ý nhỏ trong mục | `a) Độ cầu` | nghiêng (không đưa vào mục lục) |
 
-- Không quá 4 cấp. Mục nào có tiểu mục thì phải có ít nhất 2 tiểu mục.
+- Đánh số tối đa 3 cấp (`1.1.1.`); ý nhỏ hơn dùng `a)`, `b)`, `c)`, không đánh số `1.1.1.1.`. Mục nào có
+  tiểu mục thì phải có ít nhất 2 tiểu mục.
 - Mọi số thứ tự kết thúc bằng dấu chấm (`1.1.`, `1.1.1.`); dùng một kiểu thống nhất cho tên chương:
   hoặc Ả Rập (`Chương 1.`) hoặc La Mã (`Chương I.`), không trộn `Chương 1.` với `Chương II:`.
 - Số không được trùng hay nhảy cóc (1.2.4 rồi lại 1.2.4; 4.4.3 rồi 4.4.5).
@@ -152,7 +153,7 @@ Không dùng phím Tab hay dấu cách để lùi đầu dòng: dùng thụt l�
 | Mục La Mã của báo cáo hành chính (`I.`, `II.`) | như nội dung | **ĐẬM, IN HOA** | trái |
 | Cấp 2 (`1.1.` / `1.`) | như nội dung | **đậm** | trái, không thụt |
 | Cấp 3 (`1.1.1.`) | như nội dung | ***đậm nghiêng*** | trái |
-| Cấp 4 (`a)`, `1.1.1.1.`) | như nội dung | *nghiêng* | trái |
+| Ý nhỏ `a)`, `b)` (không vào mục lục) | như nội dung | *nghiêng* | trái |
 
 Định dạng đặt ở **style**, không tô đậm/đổi cỡ thủ công từng tiêu đề. Tiêu đề luôn "Keep with next" để không nằm
 một mình cuối trang.
@@ -164,7 +165,8 @@ Thứ tự phần đầu thường gặp: Bìa → Lời cam đoan → Lời c�
 
 - Luôn dùng trường tự động (TOC field) dựa trên style, không gõ tay. Danh mục gõ tay sẽ sai số trang sau
   mỗi lần sửa.
-- Mục lục lấy 3–4 cấp (chương → tiểu mục cấp 3/4). Danh mục bảng/biểu đồ/hình lấy từ style chú thích riêng
+- Mục lục lấy **tối đa 3 cấp**: chương → `1.1.` → `1.1.1.`. **Không** đưa `a)`, `b)`, `c)` (hay `1.1.1.1.`) vào
+  mục lục. Danh mục bảng/biểu đồ/hình lấy từ style chú thích riêng
   của từng loại.
 - Mục lục liệt kê cả các phần không đánh số và các danh mục, trừ chính dòng "MỤC LỤC".
 - Sau khi chỉnh sửa: Ctrl+A → F9 (Word) để cập nhật.
@@ -203,3 +205,51 @@ Thứ tự phần đầu thường gặp: Bìa → Lời cam đoan → Lời c�
 - Lần đầu xuất hiện: viết đầy đủ, chữ viết tắt trong ngoặc: `chiều dài trục nhãn cầu (AL)`.
 - Mọi chữ viết tắt đưa vào Danh mục chữ viết tắt, xếp theo thứ tự chữ cái.
 - Không viết tắt trong tên chương, mục, tên bảng/hình (trừ chữ viết tắt đã rất thông dụng).
+
+## 10. Văn phong kỹ thuật *[quy ước]*
+
+Văn bản hành chính và khoa học dùng phong cách **khách quan, chính xác, ngắn gọn, một nghĩa, thống nhất**.
+
+### 10.1. Từ ngữ
+
+| Tránh | Dùng |
+|---|---|
+| Khẩu ngữ: `rất là`, `khá là`, `tầm 20`, `bây giờ`, `hồi trước`, `cái này`, `vân vân`, `ok` | `rất`, `khá`, `khoảng 20`, `hiện nay`, `trước đây`, `nội dung này`, `v.v.` |
+| Từ cảm tính, phóng đại: `cực kỳ`, `vô cùng`, `tuyệt vời`, `hoàn hảo` | số liệu cụ thể: `cao hơn 2,3 lần`, `tăng 15%` |
+| Chủ quan: `tôi nghĩ`, `có vẻ như`, `hình như`, `chắc là` | căn cứ: `kết quả cho thấy`, `theo [tài liệu]`, `p < 0,05` |
+| Tiểu từ hội thoại cuối câu: `nhé`, `nha`, `ạ`, `đấy` | bỏ |
+| Dấu chấm than, `??`, biểu tượng cảm xúc | dấu chấm |
+| Một khái niệm nhiều tên gọi (`chiều dài trục nhãn cầu` / `trục nhãn cầu` / `AL` lẫn lộn) | một thuật ngữ, viết tắt sau lần giải thích đầu |
+
+- **Ngôi xưng**: luận văn, báo cáo khoa học dùng thống nhất `chúng tôi` hoặc câu khách quan (`nghiên cứu ghi nhận…`,
+  `kết quả cho thấy…`); `tôi` chỉ dùng ở Lời cam đoan, Lời cảm ơn. Văn bản hành chính dùng tên cơ quan
+  (`Sở Y tế đề nghị…`), không dùng ngôi thứ nhất.
+- **So sánh và nhận định** phải có số liệu và mức ý nghĩa: `nhóm A cao hơn nhóm B (23,4 so với 22,8 mm; p = 0,02)`,
+  không viết `nhóm A cao hơn đáng kể`.
+- **Thì của động từ**: phương pháp và kết quả của nghiên cứu đã làm dùng `đã`, `được` (`mẫu được chọn…`, `ghi nhận…`);
+  nhận định chung, kiến thức đã xác lập dùng thì hiện tại.
+
+### 10.2. Câu và đoạn
+
+- Mỗi câu một ý chính, không quá khoảng 2–3 dòng (khoảng 50–70 âm tiết); câu dài thì tách bằng dấu chấm.
+- Mỗi đoạn một ý, mở đầu bằng câu chủ đề; đoạn quá dài (trên khoảng 1/2 trang) thì tách.
+- Không lặp từ liền nhau (`trong trong`, `của của`); hạn chế lặp một từ nhiều lần trong một câu.
+- Liệt kê từ 3 ý trở lên thì xuống dòng thành danh sách `a)`, `b)` hoặc `-`; các ý cùng cấu trúc ngữ pháp.
+
+### 10.3. Dấu câu và khoảng trắng
+
+- Dấu `, . ; : ? ! ) ]` viết **liền** chữ đứng trước, **cách một khoảng** với chữ đứng sau.
+- Dấu mở ngoặc `( [` cách chữ đứng trước, liền chữ đứng sau: `trẻ em (6–12 tuổi)`.
+- Không dùng hai khoảng trắng liền nhau; không dùng dấu cách hay Tab để căn chỉnh.
+- `v.v.` (không viết `v.v...`); dấu ba chấm `...` hoặc `…`, thống nhất một kiểu.
+- Ngoặc kép dùng một kiểu trong toàn văn bản (`"…"` hoặc `“…”`).
+- Khoảng giá trị dùng một kiểu: gạch ngắn `–` liền số (`6–12`) hoặc có cách (`6 - 12`).
+
+### 10.4. Chính tả thống nhất
+
+- **Dấu thanh**: dùng một kiểu trong toàn văn bản. Nghị định 30 dùng kiểu mới trong quốc hiệu (`CỘNG HÒA`), nên
+  văn bản hành chính dùng kiểu mới: `hòa`, `khỏe`, `thủy`, `tòa` (không trộn `hoà`, `khoẻ`, `thuỷ`, `toà`).
+- **i/y**: chọn một cách và giữ nguyên trong cả văn bản (`lý`/`lí`, `kỹ`/`kĩ`, `tỷ lệ`/`tỉ lệ`). Tên riêng giữ đúng
+  cách viết của chủ thể (`Nguyễn Sỹ Quang`).
+- Thuật ngữ nước ngoài: lần đầu ghi tiếng Việt kèm nguyên gốc trong ngoặc, sau đó dùng tiếng Việt hoặc viết tắt:
+  `Viện Cận thị Quốc tế (International Myopia Institute – IMI)`.

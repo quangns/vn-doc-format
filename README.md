@@ -8,10 +8,12 @@ thư và các quy ước thường dùng cho báo cáo khoa học, luận văn �
 
 - **Kiểm tra** (`scripts/audit_docx.py`): khổ giấy, lề, phông, cỡ chữ; tiêu đề chưa gán style; số chỉ mục trùng hoặc
   nhảy cóc; chú thích bảng/biểu đồ/hình trùng số, thiếu số, sai dấu; mục lục gõ tay; thành phần thể thức hành chính
-  (quốc hiệu, tiêu ngữ, cơ quan, số ký hiệu, ngày tháng, nơi nhận, chữ ký); ảnh, bảng, số trang, dấu thập phân.
+  (quốc hiệu, tiêu ngữ, cơ quan, số ký hiệu, ngày tháng, nơi nhận, chữ ký); ảnh, bảng, số trang, dấu thập phân;
+  văn phong kỹ thuật (khẩu ngữ, chủ quan, câu dài, lặp từ, dấu câu, đơn vị, chữ viết tắt, i/y, dấu thanh, ngôi xưng).
 - **Sửa tự động** (`scripts/fix_docx.py`): trang A4 và lề chuẩn, Times New Roman, định dạng đoạn văn; gán style
-  tiêu đề 4 cấp và định dạng đậm/nghiêng theo cấp; tạo mục lục, danh mục bảng/biểu đồ/hình tự động; chuẩn hoá chú
-  thích; thể thức hành chính (cỡ, kiểu chữ, đường kẻ, khối chữ ký); ảnh; bảng số liệu; số trang.
+  tiêu đề và định dạng đậm/nghiêng theo cấp; tạo mục lục (tối đa 3 cấp), danh mục bảng/biểu đồ/hình tự động; chuẩn hoá chú
+  thích; thể thức hành chính (cỡ, kiểu chữ, đường kẻ, khối chữ ký); ảnh; bảng số liệu; số trang; lỗi trình bày
+  văn phong (khoảng trắng, dấu câu, đơn vị, dấu thanh).
 - **Tạo văn bản mẫu** (`scripts/tao_mau.py`): báo cáo, kế hoạch, tờ trình, công văn… đúng thể thức.
 - **Quy chuẩn tham chiếu**: [references/the-thuc-nd30.md](references/the-thuc-nd30.md).
 

@@ -1,6 +1,6 @@
 ---
 name: chuan-hoa-tai-lieu
-description: Chuẩn hoá tài liệu Word (.docx) theo thể thức báo cáo nhà nước (Nghị định 30/2020/NĐ-CP) và quy ước báo cáo khoa học, luận văn. Gồm tạo mục lục, danh mục bảng/biểu đồ/hình tự động; đánh số chỉ mục, chương (số La Mã/Ả Rập); chú thích bảng biểu; phông, cỡ chữ, lề, giãn dòng; thể thức văn bản hành chính (quốc hiệu, tiêu ngữ, tên cơ quan, số ký hiệu, địa danh ngày tháng, tên loại, trích yếu, nơi nhận, vị trí và định dạng chữ ký); cỡ chữ, đậm/nghiêng từng thành phần và từng cấp tiêu đề; vị trí, kích thước ảnh; định dạng bảng; số trang; tạo văn bản mẫu đúng thể thức; kiểm tra số liệu, dấu thập phân, ngày tháng. Dùng khi người dùng nói "đánh mục lục", "danh mục bảng", "chuẩn hoá format", "format theo chuẩn nhà nước", "Nghị định 30", "kiểm tra thể thức", "quốc hiệu tiêu ngữ", "chữ ký", "nơi nhận", "soạn công văn/báo cáo/tờ trình mẫu", "luận văn", "báo cáo".
+description: Chuẩn hoá tài liệu Word (.docx) theo thể thức báo cáo nhà nước (Nghị định 30/2020/NĐ-CP) và quy ước báo cáo khoa học, luận văn. Gồm tạo mục lục, danh mục bảng/biểu đồ/hình tự động; đánh số chỉ mục, chương (số La Mã/Ả Rập); chú thích bảng biểu; phông, cỡ chữ, lề, giãn dòng; văn phong kỹ thuật (khẩu ngữ, câu dài, viết tắt, dấu câu, chính tả thống nhất); thể thức văn bản hành chính (quốc hiệu, tiêu ngữ, tên cơ quan, số ký hiệu, địa danh ngày tháng, tên loại, trích yếu, nơi nhận, vị trí và định dạng chữ ký); cỡ chữ, đậm/nghiêng từng thành phần và từng cấp tiêu đề; vị trí, kích thước ảnh; định dạng bảng; số trang; tạo văn bản mẫu đúng thể thức; kiểm tra số liệu, dấu thập phân, ngày tháng. Dùng khi người dùng nói "đánh mục lục", "danh mục bảng", "chuẩn hoá format", "format theo chuẩn nhà nước", "Nghị định 30", "kiểm tra thể thức", "quốc hiệu tiêu ngữ", "chữ ký", "nơi nhận", "soạn công văn/báo cáo/tờ trình mẫu", "văn phong", "rà soát câu chữ", "luận văn", "báo cáo".
 ---
 
 # Chuẩn hoá tài liệu theo thể thức nhà nước
@@ -38,6 +38,11 @@ Luôn nhắc người dùng bước này.
    (so với bảng ở mục 1a của reference); quốc hiệu, tiêu ngữ ghi sai; thiếu đường kẻ; số văn bản, ngày tháng thiếu số 0;
    dấu cuối dòng nơi nhận; khối chữ ký không nằm cùng hàng với nơi nhận. Kiểm tra cả ảnh (nổi, tràn lề, chưa canh giữa,
    chú thích sai vị trí), bảng (tên bảng sai vị trí, không viền, không lặp dòng tiêu đề, tràn lề, cỡ chữ) và số trang.
+   **Văn phong kỹ thuật** (`scripts/van_phong.py`, tắt bằng `--no-van-phong`): khẩu ngữ, từ cảm tính, chủ quan, dấu
+   chấm than; câu trên 70 âm tiết, đoạn quá dài; lặp từ; dấu câu và khoảng trắng; khoảng giá trị và ngoặc kép không
+   thống nhất; số viết liền đơn vị; chữ viết tắt chưa giải thích lần đầu, chưa có hoặc thừa trong Danh mục chữ viết tắt,
+   chỉ dùng 1 lần; i/y và dấu thanh không thống nhất; trộn "tôi" với "chúng tôi". Bỏ qua mục lục, tài liệu tham khảo,
+   phụ lục.
    Số thứ tự `[i]` là chỉ số đoạn trong `doc.paragraphs`.
 
 3. **Xem cấu trúc phần đầu** trước khi sửa: in khoảng 150 đoạn đầu kèm style và `instrText` để biết mục lục
@@ -57,13 +62,16 @@ Luôn nhắc người dùng bước này.
    | `--chapter arabic\|roman` | thống nhất `Chương 1.` hoặc `Chương I.` |
    | `--heading-dot` | `3.1 Tên` → `3.1. Tên` |
    | `--captions` | style riêng cho từng loại Bảng/Biểu đồ/Hình; `Bảng 3.4:` → `Bảng 3.4.`; ghép chú thích bị Enter/Shift+Enter giữa câu; sửa "Biều đồ" |
-   | `--toc` | xoá dòng mục lục gõ tay, thay field cũ hoặc chèn field TOC mới sau "MỤC LỤC", "DANH MỤC BẢNG/BIỂU ĐỒ/HÌNH (ẢNH)"; bật `updateFields` |
+   | `--toc` | xoá dòng mục lục gõ tay, thay field cũ hoặc chèn field TOC mới sau "MỤC LỤC", "DANH MỤC BẢNG/BIỂU ĐỒ/HÌNH (ẢNH)"; bật `updateFields`. Mục lục **chỉ tới cấp 3** (`1.1.1.`), không đưa `a)`, `b)`, `c)` vào; đổi bằng `--toc-levels` |
    | `--heading-format` | đặt định dạng cho style từng cấp: cấp 1 đậm cỡ 14 canh giữa (mục `I.` của báo cáo hành chính thì canh trái), cấp 2 đậm, cấp 3 đậm nghiêng, cấp 4 nghiêng; xoá đậm/nghiêng/cỡ/màu gán tay trong tiêu đề |
    | `--admin` | thể thức NĐ 30: sửa chữ quốc hiệu, tiêu ngữ; cỡ, đậm, nghiêng, in hoa, canh giữa cho từng thành phần; kẻ đường dưới tiêu ngữ, tên cơ quan, trích yếu (nếu chưa có); `Số: 05/`, `ngày 05 tháng 02`; nơi nhận (`Nơi nhận:`, `-` đầu dòng, `;` và `.` cuối dòng, `- Lưu: `); khối chữ ký in hoa, đậm, canh giữa, chừa ít nhất 3 dòng trống để ký |
    | `--images` | ảnh cùng dòng chữ: canh giữa, bỏ thụt, thu nhỏ theo tỷ lệ nếu tràn lề, gắn liền với chú thích dưới |
    | `--tables` | chỉ bảng có tên "Bảng …": rộng bằng vùng chữ, canh giữa, viền đơn 0,5 pt, dòng đầu đậm và lặp lại khi sang trang, không ngắt dòng giữa trang, cỡ `--table-size 12`, ô số canh giữa; `--tables-all` để chuẩn hoá cả bảng không có tên |
+   | `--van-phong` | sửa lỗi trình bày văn phong có quy tắc rõ: khoảng trắng trước/sau dấu câu, trong ngoặc, khoảng trắng kép, `v.v...` → `v.v.`, `±` có cách hai bên, bỏ hư từ lặp (`trong trong`) |
+   | `--don-vi` | cách số và đơn vị: `23,5mm` → `23,5 mm` (không đụng `%`, `°` và đơn vị 1 chữ dễ nhầm như `1A`, `3D`) |
+   | `--dau-thanh moi\|cu` | thống nhất vị trí dấu thanh `hòa, khỏe, thủy` (mới) hoặc `hoà, khoẻ, thuỷ` (cũ); không nằm trong `--all` |
    | `--page-number` | số trang giữa lề trên, ẩn trang đầu (chỉ khi chưa có số trang và header trống) |
-   | `--all` | tất cả trừ `--chapter`, `--line`, `--tables-all` |
+   | `--all` | tất cả trừ `--chapter`, `--line`, `--tables-all`, `--dau-thanh` |
 
    Muốn đổi cỡ chữ mặc định của thành phần thể thức thì sửa `SIZES` trong `scripts/the_thuc.py` (vẫn phải nằm
    trong khoảng NĐ 30 ghi chú bên cạnh).
@@ -85,17 +93,20 @@ Luôn nhắc người dùng bước này.
 
 5. **Sửa tay phần script không làm** (viết Python riêng bằng python-docx khi cần):
    - Tiêu đề không theo mẫu số (ví dụ `2 Tồn tại` thiếu dấu chấm, không in đậm) thì gán style bằng tay.
-   - Mục `a)`, `b)` muốn đưa vào mục lục cấp 4: gán style cấp 4.
    - Số trang La Mã cho phần đầu: cần section break, hướng dẫn người dùng làm trong Word nếu không chắc chắn.
    - Ảnh nổi (wrap text) hoặc đường kẻ vẽ bằng shape lệch vị trí: hướng dẫn người dùng chọn "In line with text" trong Word.
    - Văn bản hành chính không trình bày bằng bảng 2 cột (quốc hiệu và tên cơ quan nằm ở 2 đoạn rời): script vẫn định dạng
      chữ nhưng không dàn được 2 cột. Dựng lại phần đầu bằng `tao_mau.py` rồi chép nội dung sang.
 
-6. **Không tự sửa nội dung học thuật/số liệu.** Không đánh lại số chương, mục, bảng khi bị trùng/thiếu; không đổi
+6. **Văn phong: chỉ tự sửa lỗi trình bày.** Câu dài, khẩu ngữ, chủ quan, viết tắt, i/y, ngôi xưng thì liệt kê kèm vị trí
+   và gợi ý theo mục 10 của reference. Nếu người dùng nhờ viết lại câu thì đề xuất câu mới để họ duyệt, không tự thay
+   hàng loạt. Giữ nguyên trích dẫn, tên riêng, thuật ngữ chuyên ngành.
+
+7. **Không tự sửa nội dung học thuật/số liệu.** Không đánh lại số chương, mục, bảng khi bị trùng/thiếu; không đổi
    dấu thập phân hàng loạt (dấu phẩy còn là dấu liệt kê, dấu chấm còn là phân cách nghìn). Liệt kê cụ thể để
    người viết quyết định. Chỉ sửa chính tả hiển nhiên ở chú thích ("Biều" → "Biểu") và ghi rõ trong báo cáo.
 
-7. **Lưu và báo cáo.** Ghi đè file đích (giữ bản gốc), sau đó báo cáo theo 3 nhóm: đã sửa tự động, cần người dùng bấm
+8. **Lưu và báo cáo.** Ghi đè file đích (giữ bản gốc), sau đó báo cáo theo 3 nhóm: đã sửa tự động, cần người dùng bấm
    F9, lỗi nội dung cần tác giả quyết định (kèm vị trí và trích đoạn).
 
 ## Lưu ý kỹ thuật (đã gặp)

@@ -15,14 +15,17 @@ Các bước (chạy theo thứ tự dưới đây):
   --chapter    arabic|roman: thống nhất "Chương 1." hoặc "Chương I." (dấu chấm sau số)
   --heading-dot thêm dấu chấm sau số mục: "3.1 Tên" -> "3.1. Tên"
   --captions   chú thích Bảng/Biểu đồ/Hình: style riêng từng loại, dấu "." sau số, ghép đoạn bị tách
-  --toc        chèn/thay trường Mục lục, Danh mục bảng/biểu đồ/hình sau các tiêu đề tương ứng
+  --toc        chèn/thay trường Mục lục (tới cấp --toc-levels, mặc định 3), Danh mục bảng/biểu đồ/hình
   --heading-format  đồng bộ cỡ/đậm/nghiêng/canh lề từng cấp tiêu đề (kéo theo --headings)
   --admin      thể thức hành chính NĐ 30: quốc hiệu, tiêu ngữ, tên cơ quan, số ký hiệu, địa danh ngày tháng,
                tên loại, trích yếu, V/v, kính gửi, nơi nhận, khối chữ ký; đường kẻ; thêm 0 cho ngày/số
   --images     ảnh: canh giữa, thu nhỏ cho vừa lề, giữ liền với chú thích
   --tables     bảng số liệu: rộng bằng vùng chữ, viền đơn, dòng tiêu đề đậm + lặp lại, cỡ --table-size
   --page-number số trang giữa lề trên, ẩn trang đầu (nếu chưa có)
-  --all        = tất cả các bước trên (trừ --chapter, --line)
+  --van-phong  văn phong (trình bày): khoảng trắng quanh dấu câu, "v.v.", "±", bỏ hư từ lặp ("của của")
+  --don-vi     cách số và đơn vị: "23,5mm" -> "23,5 mm"
+  --dau-thanh  moi|cu: thống nhất vị trí dấu thanh "hòa, thủy" (mới) hoặc "hoà, thuỷ" (cũ)
+  --all        = tất cả các bước trên (trừ --chapter, --line, --dau-thanh)
 """
 import argparse, copy, os, re, sys
 from collections import Counter
@@ -35,6 +38,7 @@ from docx.shared import Mm, Pt, Cm
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from audit_docx import classify_heading, CAPTION_RE, is_bold  # noqa: E402
 import the_thuc  # noqa: E402
+import van_phong  # noqa: E402
 from the_thuc import replace_span  # noqa: E402
 
 BODY_STYLES = ('Normal', 'Normal (Web)', 'No Spacing', 'Body Text', 'List Paragraph')
@@ -432,7 +436,7 @@ def _field_end(ps, j):
     return None
 
 
-def step_toc(doc, head_styles, cap_styles):
+def step_toc(doc, head_styles, cap_styles, levels=3):
     sep = list_sep(doc)
     ps = doc.paragraphs
     start = body_start(ps)
@@ -467,7 +471,9 @@ def step_toc(doc, head_styles, cap_styles):
         if target is None or target in done:
             continue
         if target == 'toc':
-            order = sorted(head_styles.items(), key=lambda kv: str(kv[0]))
+            # mục lục chỉ tới cấp `levels` (mặc định 1.1.1.); không đưa a), b), c) hay 1.1.1.1. vào
+            order = sorted(((lv, s) for lv, s in head_styles.items()
+                            if not (isinstance(lv, int) and lv > levels)), key=lambda kv: str(kv[0]))
             parts = [f'{s}{sep}{lv if isinstance(lv, int) and lv else 1}' for lv, s in order]
             if not parts:
                 log.append('!! mục lục: không có style tiêu đề nào, bỏ qua (chạy kèm --headings)')
@@ -515,7 +521,7 @@ def main():
     ap.add_argument('src')
     ap.add_argument('-o', '--out', required=True)
     for f in ('page', 'font', 'font-runs', 'body', 'headings', 'heading-dot', 'heading-format', 'captions', 'toc',
-              'admin', 'images', 'tables', 'page-number', 'all'):
+              'admin', 'images', 'tables', 'page-number', 'van-phong', 'don-vi', 'all'):
         ap.add_argument('--' + f, action='store_true')
     ap.add_argument('--margins', default='20,20,30,15', help='trên,dưới,trái,phải (mm)')
     ap.add_argument('--font-name', default='Times New Roman')
@@ -523,6 +529,9 @@ def main():
     ap.add_argument('--line', type=float, help='giãn dòng, 1.0–1.5')
     ap.add_argument('--chapter', choices=['arabic', 'roman'])
     ap.add_argument('--tables-all', action='store_true', help='chuẩn hoá cả bảng không có tên "Bảng"')
+    ap.add_argument('--dau-thanh', choices=['moi', 'cu'])
+    ap.add_argument('--toc-levels', type=int, default=3, choices=[1, 2, 3, 4],
+                    help='số cấp tiêu đề đưa vào mục lục (mặc định 3: Chương → 1.1. → 1.1.1.)')
     ap.add_argument('--table-size', type=float, default=12, help='cỡ chữ trong bảng (11–13)')
     a = ap.parse_args()
     if os.path.abspath(a.src) == os.path.abspath(a.out):
@@ -530,6 +539,7 @@ def main():
     if a.all:
         a.page = a.font = a.font_runs = a.body = a.headings = a.heading_dot = a.captions = a.toc = True
         a.heading_format = a.admin = a.images = a.tables = a.page_number = True
+        a.van_phong = a.don_vi = True
     if a.heading_format:
         a.headings = True
     if a.line and not 1.0 <= a.line <= 1.5:
@@ -559,10 +569,12 @@ def main():
         the_thuc.step_tables(doc, a.table_size, a.tables_all)
     if a.page_number:
         the_thuc.step_page_number(doc)
+    if a.van_phong or a.don_vi or a.dau_thanh:
+        van_phong.fix(doc, punct=a.van_phong, units=a.don_vi, tone=a.dau_thanh)
     if a.toc:
-        step_toc(doc, heads, caps)
+        step_toc(doc, heads, caps, a.toc_levels)
     doc.save(a.out)
-    print('\n'.join(log + the_thuc.log))
+    print('\n'.join(log + the_thuc.log + van_phong.log))
     print(f'\nĐã lưu: {a.out}')
 
 

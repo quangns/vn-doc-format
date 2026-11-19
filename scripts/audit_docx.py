@@ -15,6 +15,7 @@ from docx.shared import Emu
 import os
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import the_thuc  # noqa: E402
+import van_phong  # noqa: E402
 
 HEADING_RE = re.compile(
     r'^(?P<num>(?:Chương|CHƯƠNG|Phần|PHẦN)\s+[0-9IVXLC]+|\d+(?:\.\d+)*|[IVXLC]+|[a-zđ])'
@@ -124,6 +125,7 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument('file')
     ap.add_argument('--json', action='store_true')
+    ap.add_argument('--no-van-phong', action='store_true', help='bỏ qua kiểm tra văn phong')
     a = ap.parse_args()
     d = docx.Document(a.file)
     ps = d.paragraphs
@@ -318,6 +320,16 @@ def main():
 
     # ---- 7. Thể thức hành chính, ảnh, bảng, số trang ----
     the_thuc.audit_layout(d, R)
+    for x in toc_fields:
+        lv = [int(n) for n in re.findall(r'[,;](\d)(?=[,;"])', x)] + \
+             [int(n) for n in re.findall(r'\\o\s+"\d-(\d)"', x)]
+        if lv and max(lv) > 3:
+            R['muc_luc'].append(f'mục lục đang lấy tới cấp {max(lv)}: chỉ nên tới cấp 3 (1.1.1.), '
+                                'không đưa a), b), c) vào mục lục (fix_docx.py --toc)')
+
+    # ---- 8. Văn phong kỹ thuật ----
+    if not a.no_van_phong:
+        van_phong.audit(d, R)
 
     # ---- Xuất ----
     R = {k: v for k, v in R.items() if v}
@@ -341,6 +353,12 @@ def main():
         'so_la_ma_unicode': 'Số La Mã',
         'the_thuc_thieu': 'Thiếu thành phần thể thức (NĐ 30)', 'the_thuc_dinh_dang': 'Cỡ/kiểu chữ thành phần thể thức',
         'the_thuc_noi_dung': 'Cách ghi thành phần thể thức', 'anh': 'Ảnh', 'bang': 'Bảng',
+        'vp_khau_ngu': 'Văn phong: khẩu ngữ, từ không trang trọng', 'vp_chu_quan': 'Văn phong: chủ quan, cảm tính',
+        'vp_cam_than': 'Văn phong: dấu cảm thán, biểu tượng', 'vp_cau_dai': 'Văn phong: câu quá dài (> 70 âm tiết)',
+        'vp_doan_dai': 'Văn phong: đoạn quá dài', 'vp_lap_tu': 'Văn phong: lặp từ',
+        'vp_dau_cau': 'Văn phong: dấu câu, khoảng trắng', 'vp_don_vi': 'Văn phong: số và đơn vị',
+        'vp_viet_tat': 'Văn phong: chữ viết tắt', 'vp_chinh_ta': 'Văn phong: chính tả thống nhất',
+        'vp_ngoi': 'Văn phong: ngôi xưng',
     }
     print(f'== KIỂM TRA THỂ THỨC: {a.file}')
     print(f'   {len(ps)} đoạn, {len(heads)} tiêu đề, ' +
