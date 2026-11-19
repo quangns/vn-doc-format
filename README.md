@@ -1,4 +1,4 @@
-# Thể thức văn bản theo Nghị định 30/2020/NĐ-CP – Công cụ chuẩn hoá file Word (.docx) tự động
+# vn-doc-format: Thể thức văn bản theo Nghị định 30/2020/NĐ-CP – Công cụ chuẩn hoá file Word (.docx) tự động
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 ![Python 3.9+](https://img.shields.io/badge/Python-3.9%2B-blue.svg)
@@ -114,8 +114,8 @@ Khổ A4, font **Times New Roman** (Unicode TCVN 6909:2001). **Lề trên, dư�
 Cần Python 3.9 trở lên.
 
 ```bash
-git clone https://github.com/quangns/the-thuc-van-ban-nghi-dinh-30.git
-cd the-thuc-van-ban-nghi-dinh-30
+git clone https://github.com/quangns/vn-doc-format.git
+cd vn-doc-format
 python3 -m venv .venv && . .venv/bin/activate      # Windows: .venv\Scripts\activate
 pip install python-docx
 ```
